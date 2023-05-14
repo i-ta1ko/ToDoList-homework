@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>2DO APP</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+		}
+		ul {
+			list-style: none;
+			padding-left: 0;
+		}
+		.container {
+			margin: 0 auto;
+			max-width: 800px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>
+			<a href="/">GO HOME</a>
+			<br><br>
+			My List 
+		</h1>
+		
+		<!-- Create a new project form -->
+		<form method="POST" action="/create_project">
+			<label for="project_name">Project Name:</label>
+			<input type="text" name="project_name" id="project_name" required>
+			<button type="submit">Create Project</button>
+		</form>
+
+		<h2>Projects</h2>
+		<ul>
+			{% for project in projects %}
+				<li>
+					{{ project[1] }}
+					<button onclick="editProjectName('{{ project[0] }}', '{{ project[1] }}')">Edit</button>
+					<a href="/delete_project/{{ project[0] }}">Delete</a>
+				</li>
+			{% endfor %}
+		</ul>
+
+		<form method="POST" action="/create_task">
+			<label for="task_name">Task Name:</label>
+			<input type="text" name="task_name" id="task_name" required>
+
+			<label for="project">Project:</label>
+			<select name="project" id="project" required>
+				{% for project in projects %}
+					<option value="{{ project[0] }}">{{ project[1] }}</option>
+				{% endfor %}
+			</select>
+
+			<button type="submit">Create Task</button>
+		</form>
+
+		{% if tasks %}
+		{% for project in projects %}
+			<!-- List of tasks for selected project -->
+			<h2>Tasks for {{ project[1] }}</h2>
+			<ul>
+				{% for task in tasks %}
+					{% if task[2] == project[0] %}
+						<li>
+							{{ task[1] }}
+							{% if task[3] %}
+								<span>
+									<a href='/undo_task/{{ task[0] }}'>(Completed &#9989;)</a>
+								</span>
+								<a href="/delete_task/{{ task[0] }}">Delete</a>
+							{% else %}
+								<a href="/complete_task/{{ task[0] }}">Complete</a>
+								<button onclick="editTaskName('{{ task[0] }}', '{{ task[1] }}')">Edit</button></li>
+								<form method="POST" action="/upload_file/{{ task[0] }}" enctype="multipart/form-data">
+									<label for="file">Attach:</label>
+									<input type="file" name="file" id="file">
+									<button type="submit">Upload</button>
+								</form>
+								<a href="/delete_task/{{ task[0] }}">Delete</a>
+							{% endif %}
+						</li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		{% endfor %}
+		{% endif %}
+
+<script>
+	function editProjectName(projectId, currentName) {
+	  var newName = prompt("Enter a new name for the project", currentName);
+	  if (newName !== null) {
+		var form = document.createElement("form");
+		form.method = "POST";
+		form.action = "/edit_project/" + projectId;
+		var input = document.createElement("input");
+		input.type = "text";
+		input.name = "new_project_name";
+		input.value = newName;
+		form.appendChild(input);
+		document.body.appendChild(form);
+		form.submit();
+	  }
+	}
+	
+	function editTaskName(taskId, currentName) {
+	  var newName = prompt("Enter a new name for the task", currentName);
+	  if (newName !== null) {
+		var form = document.createElement("form");
+		form.method = "POST";
+		form.action = "/edit_task/" + taskId;
+		var input = document.createElement("input");
+		input.type = "text";
+		input.name = "new_task_name";
+		input.value = newName;
+		form.appendChild(input);
+		document.body.appendChild(form);
+		form.submit();
+	  }
+	}
+</script>
+	
+
+</body>
+</html>

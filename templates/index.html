@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <title>{% block title %}2DO APP{% endblock %}</title>
+
+    <style>
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+    
+      h1, h2, h3, h4, h5, h6 {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      .navbar-brand {
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      
+      .navbar-brand:hover {
+        color: #e7ede0;
+      }
+      
+    </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #87ef74;">
+    <a class="navbar-brand ms-4" href="#">2DO</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse ms-end" id="navbarNav" style="margin-left: auto; margin-right: 20px;">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="">HOME</a>
+        </li>
+        {% if g.user[4] != "terminated" %}
+        <li class="nav-item">
+          {% if user %}
+            <a class="nav-link" href="todo">TO-DO APP</a>
+          {% else %}
+            <a class="nav-link" href="nonlogged" target="_blank">TO-DO APP</a>
+          {% endif %}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="profile">PROFILE</a>
+        </li>
+        <li class="nav-item">
+          {% if user %}
+            <a class="nav-link" href="logout">LOGOUT</a>
+          {% else %}
+            <a class="nav-link" href="register">LOGIN/REGISTER</a>
+          {% endif %}
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <span class="nav-link text-danger">ACCOUNT IS TERMINATED</span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="logout">LOGOUT</a>
+        </li>
+        {% endif %}
+        {% if g.user[3] == "free" %}
+        <li class="nav-item">
+          <a class="nav-link" href="upgrade">UPGRADE NOW</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+  
+  <div style="text-align: center; margin-top: 20px; margin-bottom: 40px;">
+    <h1 style="font-size: 3rem;">Streamline Your Life with Our Powerful To-Do List App</h1>
+  </div>
+  <div style="margin: 0px 20px; text-align: justify;">
+    <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">
+      Are you tired of feeling overwhelmed by your daily tasks and obligations?
+    </h2>
+    <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">
+      Do you struggle to stay organized and productive throughout the day? 
+      If so, our powerful to-do list app is just what you need to streamline your life and achieve your goals.
+    </p>
+    <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">
+      Our app is designed to help you stay on top of your tasks and obligations with ease. 
+      With features like customizable lists, reminders, and priority settings, you'll be able
+      to stay organized and focused no matter how busy your schedule gets. And with intuitive, 
+      user-friendly design, you'll be able to use our app seamlessly, whether you're on the go or at your desk.
+    </p>
+    <img src="https://cdn.pixabay.com/photo/2020/01/21/18/39/todo-4783676_960_720.png" style="display:block; margin:auto; max-width:100%; height:auto;">
+    <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">
+      Sign up today and start taking control of your life with our powerful to-do list app. 
+    </h2>
+    <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">
+      With our help, you'll be able to accomplish more than ever before, without sacrificing your sanity or your well-being.
+    </p>
+  </div>
+  
+  
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+        <footer style ="text-align: center; margin-bottom: 20px;">
+            <hr>
+          2DO  &copy; 2023
+        </footer>
+    </div>
+</body>
+</html>

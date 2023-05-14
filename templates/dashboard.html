@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>User Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Membership Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[3] }}</td>
+                <td>{{ user[4] }}</td>
+                <td>
+                    {% if user[3] == 'free' %}
+                    <form action="{{ url_for('upgrade_user', user_id=user[0]) }}" method="POST">
+                        <!-- <input type="hidden" name="user_id" value="{{ user[0] }}"> -->
+                        <button type="submit">Upgrade</button>
+                    </form>
+                    {% endif %}
+                    {% if user[3] == 'premium' %}
+                    <form action="{{ url_for('downgrade_user', user_id=user[0]) }}" method="POST">
+                        <!-- <input type="hidden" name="user_id" value="{{ user[0] }}"> -->
+                        <button type="submit">Downgrade</button>
+                    </form>
+                    {% endif %}
+                    {% if user[4] == 'active' %}
+                    <form action="{{ url_for('terminate_user', user_id=user[0]) }}" method="POST">
+                        <!-- <input type="hidden" name="user_id" value="{{ user[0] }}"> -->
+                        <button type="submit">Terminate</button>
+                    </form>
+                    {% endif %}
+                    {% if user[4] == 'terminated' %}
+                    <form action="{{ url_for('activate_user', user_id=user[0]) }}" method="POST">
+                        <!-- <input type="hidden" name="user_id" value="{{ user[0] }}"> -->
+                        <button type="submit">Activate</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    <a href="{{ url_for('logout') }}">Logout</a>
+    <br>
+    <a href="/">Home</a>
+</body>
+</html>

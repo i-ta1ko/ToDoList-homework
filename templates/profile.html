@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOUR 2DO PROFILE</title>
+    <style>
+        /* center the content */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        /* style the header */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* style the links */
+        a {
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: rgb(112, 122, 43);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>YOUR PROFILE PAGE</h1>
+    <h2>Welcome, {{ g.user[1]}} &#129303;</h2>
+    <br>
+    <a href="{{ url_for('logout') }}">IF YOU WANT TO LOGOUT PRESS HERE</a>
+    <br><br><a href="/">IF YOU WANT TO GO HOME</a>
+</body>
+</html>
+
